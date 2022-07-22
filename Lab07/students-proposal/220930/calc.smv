@@ -1,0 +1,31 @@
+MODULE main
+DEFINE
+    LEN := 3;
+    MIN_N := 1;
+    MAX_N := 10;
+
+VAR
+    iter : 0..LEN - 1;
+    res : array 0..LEN - 1 of MIN_N - MAX_N..MAX_N * MAX_N;
+
+FROZENVAR
+    ops : array 0..LEN - 1 of {add, sub, mul};
+    first : array 0..LEN - 1 of MIN_N..MAX_N;
+    second : array 0..LEN - 1 of MIN_N..MAX_N;
+
+ASSIGN
+    init(iter) := 0;
+    next(iter) := min(iter + 1, LEN - 1);
+
+    init(res[0]) := case
+        ops[0] = add : first[0] + second[0];
+        ops[0] = sub : first[0] - second[0];
+        ops[0] = mul : first[0] * second[0];
+    esac;
+
+TRANS next(ops[iter]) = add -> next(res[iter]) = next(first[iter]) + next(second[iter]);
+TRANS next(ops[iter]) = sub -> next(res[iter]) = next(first[iter]) - next(second[iter]);
+TRANS next(ops[iter]) = mul -> next(res[iter]) = next(first[iter]) * next(second[iter]);
+TRANS iter >= 0 -> next(res[0]) = res[0];
+TRANS iter >= 1 -> next(res[1]) = res[1];
+TRANS iter >= 2 -> next(res[2]) = res[2];
