@@ -1,33 +1,39 @@
-MODULE main()
-    VAR  a: 1..100;  b: 1..100; 
-        ia: 1..100;  ib: 1..100; -- initial values of a and b
-         x: 1..100;              -- represents any other divisor
-         pc: {l1,l2,l3,l4,l5};
+MODULE main
+    DEFINE
+        N_MIN := 1;
+        N_MAX := 100;
+    VAR
+        a: N_MIN..N_MAX;
+        b: N_MIN..N_MAX;
+        pc: {l1,l2,l3,l4,l5};
+        -- represents any other divisor
+        x: N_MIN..N_MAX;              
+    FROZENVAR
+        -- initial values of a and b
+        ia: N_MIN..N_MAX;  ib: N_MIN..N_MAX;
     ASSIGN
         init(ia) := a;
         init(ib) := b;
-        init(pc):=l1;
-        next(pc):=
+        init(pc) := l1;
+        next(pc) :=
             case
-                pc=l1 & a!=b   : l2;
-                pc=l1 & a=b    : l5;
-                pc=l2 & a>b    : l3;
-                pc=l2 & a<=b   : l4;
-                pc=l3 | pc=l4  : l1;
-                pc=l5          : l5;
+                pc = l1 & a != b  : l2;
+                pc = l1 & a = b   : l5;
+                pc = l2 & a > b   : l3;
+                pc = l2 & a <= b  : l4;
+                pc = l3 | pc = l4 : l1;
+                pc = l5           : l5;
             esac;
-        next(a):=
+        next(a) :=
             case
-                pc=l3 & a > b: a - b;
+                pc = l3 & a > b: a - b;
                 TRUE: a;
             esac;
-        next(b):=
+        next(b) :=
             case
-                pc=l4 & b > a: b - a;
+                pc = l4 & b > a: b - a;
                 TRUE: b;
             esac;
-        next(ia) := ia;
-        next(ib) := ib;
     
 LTLSPEC F (pc = l5);    -- eventually we exit the while loop
 
