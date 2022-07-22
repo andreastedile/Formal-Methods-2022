@@ -1,0 +1,17 @@
+-- Laboratory 7, slide 36
+
+MODULE cell(input)
+VAR
+    val : {red, green, blue};
+ASSIGN
+    next(val) := input;
+
+MODULE main
+VAR
+    c1 : cell(c3.val);
+    c2 : cell(c1.val);
+    c3 : cell(c2.val);
+ASSIGN -- Forces the execution of slide 37
+    init(c1.val) := red;
+    init(c2.val) := green;
+    init(c3.val) := blue;
