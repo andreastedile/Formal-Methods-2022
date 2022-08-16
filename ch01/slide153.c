@@ -18,6 +18,45 @@
 //       @18
 //       #19 A2
 //     )
+//     @17
+//     #20 (clause-hyp
+//       @17
+//       @18
+//       @19
+//     )
+//     @19
+//     #16 (clause-hyp
+//       #14 (`not` A2)
+//       #15 B2
+//     )
+//     @15
+//     #13 (clause-hyp
+//       #12 (`not` B2)
+//       #7 (`not` B4)
+//     )
+//     #1 B4
+//     #2 (clause-hyp
+//       @1
+//     )
+//   )
+//   @25
+//   #11 (clause-hyp
+//     #9 (`not` A1)
+//     #10 B6
+//   )
+//   @10
+//   #8 (clause-hyp
+//     #5 (`not` B6)
+//     #6 (`not` (`or` (`not` B4) (`not` B6)))
+//     @7
+//   )
+//   #3 (`or` (`not` B4) (`not` B6))
+//   #4 (clause-hyp
+//     @3
+//   )
+//   @1
+//   @2
+// )
 
 #include "mathsat.h"
 #include <stdio.h>
